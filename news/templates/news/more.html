@@ -1,0 +1,25 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="{% static 'news/img/logo.png' %}" >
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+</head>
+<style>
+    body{
+        font-size: 20px;
+    }
+</style>
+<body>
+    <a href="{{ title.link }}" target="_blank"><strong>{{ title }}</strong> </a>
+    <ul>
+        {% for news in news_list %}
+            <a href="{{ news.link }}" target="_blank"><li>{{ news }}</li></a>
+        {% endfor %}
+    </ul>
+</body>
+</html>
