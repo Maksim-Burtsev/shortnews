@@ -28,7 +28,7 @@ class NewsCategory(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = Category.objects.get(slug=self.kwargs['cat_slug'])
+        # context['title'] = Category.objects.get(slug=self.kwargs['cat_slug'])
 
         return context
 
