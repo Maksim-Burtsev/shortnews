@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 
 class News(models.Model):
+    """Модель одной новости на сайте."""
 
     title = models.CharField(max_length=200, verbose_name='Заголовок')
     
@@ -23,7 +24,8 @@ class News(models.Model):
         ordering = ['pk']
 
 class Category(models.Model):
-    
+    """Каждая категория, или сайт, откуда парсятся данные)."""
+
     name = models.CharField(max_length=200, verbose_name='Категория')
     slug = models.SlugField(max_length=200, unique=True, verbose_name='Slug')    
     link = models.CharField(max_length=200, verbose_name='Ссылка')

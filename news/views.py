@@ -3,6 +3,7 @@ from django.views.generic  import ListView, DetailView
 from .models import News, Category
 
 class NewsHome(ListView):
+    """Класс, который выводит главную страницу."""
 
     model = News
     template_name = 'news/index.html'
@@ -20,6 +21,7 @@ class NewsHome(ListView):
         return News.objects.all()[:7]
 
 class NewsCategory(ListView):
+    """Класс, который выводит данные конкретной категории."""
 
     model = News
     template_name = 'news/more.html'
@@ -28,7 +30,7 @@ class NewsCategory(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context['title'] = Category.objects.get(slug=self.kwargs['cat_slug'])
+        context['title'] = Category.objects.get(slug=self.kwargs['cat_slug'])
 
         return context
 
