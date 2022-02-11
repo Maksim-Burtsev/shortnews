@@ -1,6 +1,15 @@
 {% extends 'news/base.html' %}
 
 {% block content %}
+    
+    <form action="{% url 'search' %}" method="get">
+        {% csrf_token %}
+        {% for f in form %}
+            {{f}}
+        {% endfor %}
+        <button type="submit">Search</button>
+    </form>
+    
     {% for news in news_list %}
         <p style="font-size: 30px;"><a href="{{ news.0.cat.link}}" target="_blank"><strong>{{ news.0.cat}}</strong> </a></p>
         <ul>

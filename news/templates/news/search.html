@@ -1,0 +1,8 @@
+{% extends 'news/base.html' %}
+
+{% block content %}
+    <a href="{% url 'home' %}" > <p style="font-size: 30px;">Назад</p></a> 
+    {% for news in news_list %}
+        <a href="{{news.link}}" target="_blank"><p>{{ news }}</p></a>
+    {% endfor %}
+{% endblock %}
