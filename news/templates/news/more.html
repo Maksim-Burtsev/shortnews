@@ -4,7 +4,7 @@
 <a href="{{ title.link }}" target="_blank"><strong>{{ title }}</strong> </a>
     <ul>
         {% for news in news_list %}
-            <a href="{{ news.link }}" target="_blank"><li>{{ news }}</li></a>
+            <a href="{{ news.link }}" target="_blank">{{ news }}</a><br>
         {% endfor %}
     </ul>
 {% endblock %}

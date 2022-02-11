@@ -1,10 +1,13 @@
 {% extends 'news/base.html' %}
-{% block content %}
-<ul>
-    {% for news in news_list %}
-        <a href="{{ news.link }}" target="_blank"><li>{{ news }}</li></a>
-    {% endfor %}
-    <li><a href="{{ categories.get_absolute_url }}">More</a></li>
-</ul>
 
+{% block content %}
+    {% for news in news_list %}
+        <p style="font-size: 30px;"><a href="{{ news.0.cat.link}}" target="_blank"><strong>{{ news.0.cat}}</strong> </a></p>
+        <ul>
+        {% for post in news %}
+            <p><a href="{{ post.link }}" target="_blank">{{ post }}</a></p>
+        {% endfor %}
+        <a href="{{ news.0.cat.get_absolute_url }}">More</a>
+    </ul>
+    {% endfor %}
 {% endblock %}

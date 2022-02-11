@@ -18,7 +18,14 @@ class NewsHome(ListView):
         return context
 
     def get_queryset(self):
-        return News.objects.all()[:7]
+        items = []
+        cats = Category.objects.prefetch_related('news_set').all()
+        for cat in cats:
+            # items.append(cat.news_set.select_related('cat')[:10])
+            items.append(cat.news_set.all()[:10])
+
+        return items
+        # return News.objects.all()[:7]
 
 class NewsCategory(ListView):
     """Класс, который выводит данные конкретной категории."""
