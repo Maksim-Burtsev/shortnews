@@ -27,8 +27,13 @@ class Category(models.Model):
     """Каждая категория, или сайт, откуда парсятся данные)."""
 
     name = models.CharField(max_length=200, verbose_name='Категория')
-    slug = models.SlugField(max_length=200, unique=True, verbose_name='Slug')    
+    
+    slug = models.SlugField(max_length=200, unique=True, 
+    
+    verbose_name='Slug')    
+    
     link = models.CharField(max_length=200, verbose_name='Ссылка')
+
 
     def __str__(self):
         return self.name
@@ -40,6 +45,7 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'категория'
         verbose_name_plural = 'Категории'
+        ordering = ['-pk']
 
         
 
