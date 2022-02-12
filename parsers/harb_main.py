@@ -27,6 +27,7 @@ def parse(url: str):
 
     return titles, links
 
+
 def clean_data(titles: list, links: list):
     """Получает на вход списки названия и ссылок статей и формирует готовые кортежи для записи в БД"""
     post_id = 131
@@ -35,19 +36,31 @@ def clean_data(titles: list, links: list):
     res = []
 
     for i in range(len(titles)):
-        tmp = (post_id, titles[i], links[i], True, time_created, 4)
+        tmp = (titles[i], links[i],
+               time_created, post_id)
         post_id += 1
         res.append(tmp)
 
     return res
 
-def update_database(titles: list, links: list):
-    conn = sqlite3.connect("C:\\Users\\user\\h_w\\shortnews\\db.sqlite3")
-    cursor = conn.cursor()
 
-    articles = clean_data(titles, links)  # ᯨ᮪ tuple
-    cursor.executemany("INSERT INTO news_news VALUES (?,?,?,?,?,?)", articles)
-    conn.commit()
+def update_database(titles: list, links: list):
+    """Обноваляет базу данных"""
+
+    sqlite_connection = sqlite3.connect(
+        "C:\\Users\\user\\h_w\\shortnews\\db.sqlite3")
+
+    cursor = sqlite_connection.cursor()
+
+    sql_update_query = """Update news_news set title = ?, link = ?, time_created = ? where id = ?"""
+    articles = clean_data(titles, links)
+    cursor.executemany(sql_update_query, articles)
+
+    sqlite_connection.commit()
+    cursor.close()
+
+    sqlite_connection.close()
+
 
 def main():
     titles, links = [], []
