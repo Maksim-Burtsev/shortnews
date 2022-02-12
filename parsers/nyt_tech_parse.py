@@ -44,7 +44,7 @@ def get_data():
 
     for i in range(10):
         articles.append(
-            (news_id, data[str(i)]['title'], data[str(i)]['link'], True, datetime.datetime.now(), 2))
+            (data[str(i)]['title'], data[str(i)]['link'], datetime.datetime.now(), news_id))
         
         news_id += 1
 
@@ -52,12 +52,19 @@ def get_data():
 
 def update_database():
 
-    conn = sqlite3.connect("C:\\Users\\user\\h_w\\shortnews\\db.sqlite3")
-    cursor = conn.cursor()
+    sqlite_connection = sqlite3.connect("C:\\Users\\user\\h_w\\shortnews\\db.sqlite3")
 
-    articles = get_data()  # ᯨ᮪ tuple
-    cursor.executemany("INSERT INTO news_news VALUES (?,?,?,?,?,?)", articles)
-    conn.commit()
+    cursor = sqlite_connection.cursor()
+
+    sql_update_query = """Update news_news set title = ?, link = ?, time_created = ? where id = ?"""
+    articles = get_data()
+    cursor.executemany(sql_update_query, articles)
+    
+    sqlite_connection.commit()
+    cursor.close()
+
+    sqlite_connection.close()
+
     os.remove('nyt_tech.json')
 
 def main():

@@ -5,10 +5,10 @@ import sqlite3
 import datetime
 import os
 
-N = 1 #����� ����
+N = 1 
 
 URLS = [
-    f'https://habr.com/ru/search/page{i}/?q=Python&target_type=posts&order=date' for i in range(1, 6)] #urls ��� ��࠭�� �� ������ Python 
+    f'https://habr.com/ru/search/page{i}/?q=Python&target_type=posts&order=date' for i in range(1, 6)]  
 
 
 def make_json():
@@ -56,7 +56,7 @@ def get_data():
     for i in range(5):
         for j in range(20):
             articles.append(
-                (news_id, data[str(i)][str(post_num)]['title'], data[str(i)][str(post_num)]['link'], True, datetime.datetime.now(), 1))
+                (data[str(i)][str(post_num)]['title'], data[str(i)][str(post_num)]['link'], datetime.datetime.now(), news_id))
             post_num += 1
             news_id += 1
 
@@ -64,15 +64,22 @@ def get_data():
 
 
 def update_database():
+    sqlite_connection = sqlite3.connect("C:\\Users\\user\\h_w\\shortnews\\db.sqlite3")
 
-    # conn = sqlite3.connect("E:\shortnews\shortnews\db.sqlite3")
-    conn = sqlite3.connect("C:\\Users\\user\\h_w\\shortnews\\db.sqlite3")
-    cursor = conn.cursor()
+    cursor = sqlite_connection.cursor()
 
-    articles = get_data()  # ᯨ᮪ tuple
-    cursor.executemany("INSERT INTO news_news VALUES (?,?,?,?,?,?)", articles)
-    conn.commit()
+    sql_update_query = """Update news_news set title = ?, link = ?, time_created = ? where id = ?"""
+    
+    articles = get_data()
+    cursor.executemany(sql_update_query, articles)
+    
+    sqlite_connection.commit()
+    cursor.close()
+
+    sqlite_connection.close()
+
     os.remove('habr.json')
+    # conn = sqlite3.connect("E:\shortnews\shortnews\db.sqlite3")
 
 
 if __name__ == '__main__':
