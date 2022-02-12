@@ -24,14 +24,21 @@ def index(request):
     return render(request, 'news/index.html', context=context)
 
 def show_category(request, cat_slug):
-
+    
     title = Category.objects.get(slug=cat_slug)
-
-    news_list = News.objects.filter(cat_id=title.pk)
+    
+    if request.method == "POST":
+        news_list = News.objects.filter(title__icontains=request.POST.get('query'))
+        form = SearchForm(request.POST) 
+    else:
+        news_list = News.objects.filter(cat_id=title.pk)
+        form = SearchForm()
 
     context = {
         'title' : title,
         'news_list' : news_list,
+        'form' : form,
+        'cat_slug' : cat_slug,
     }
 
     return render(request, 'news/more.html', context=context)

@@ -1,12 +1,27 @@
 {% extends 'news/base.html' %} 
 
 {% block content %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    {% for f in form %}
+        {{f}}
+    {% endfor %}
+    <button type="submit">Search</button>
+</form>
+
 <a href="{{ title.link }}" target="_blank"><strong>{{ title }}</strong> </a>
     <ul>
         {% for news in news_list %}
             <a href="{{ news.link }}" target="_blank">{{ news }}</a><br>
         {% endfor %}
     </ul>
+
+{% if request.method == "POST" %}    
+    <a href="{% url 'category' cat_slug %}" style="font-size:30px;"> Назад </a>
+{% else %}
+    <a href="{% url 'home' %}">Назад</a>
+{% endif %}
 {% endblock %}
 
 
