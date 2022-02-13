@@ -15,21 +15,22 @@ def index(request):
     title = 'Главная страница'
 
     cats = Category.objects.prefetch_related('news_set').all()
-    
+
     paginator = Paginator(cats, 2)
 
     page_number = request.GET.get('page')
-    page = paginator.get_page(page_number)
+    page_obj = paginator.get_page(page_number)
 
     news_list = []
 
-    for cat in page.object_list:
+    for cat in page_obj.object_list:
         news_list.append(cat.news_set.all()[:10])
 
     context = {
         'title': title,
         'form': form,
         'news_list': news_list,
+        'page_obj': page_obj,
     }
 
     return render(request, 'news/index.html', context=context)
