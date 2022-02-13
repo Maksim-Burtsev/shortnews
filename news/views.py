@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView
 from django.http import Http404
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.core.paginator import Paginator
+from django.core.exceptions import ValidationError
 
 from news.forms import SearchForm
 from news.models import News, Category, Currency
@@ -87,7 +88,7 @@ def search(request):
         }
         return render(request, 'news/search.html', context=context)
     else:
-        raise Http404
+        raise ValidationError('Неправило заполненная форма!')
 
 # class NewsHome(ListView):
 #     """Класс, который выводит главную страницу."""
