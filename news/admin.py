@@ -1,6 +1,7 @@
 from django.contrib import admin
 from news.models import Category, News
 
+@admin.register(Category)
 class AdminCategory(admin.ModelAdmin):
 
     list_display = ('name', 'slug', 'link')
@@ -8,4 +9,3 @@ class AdminCategory(admin.ModelAdmin):
 
 
 admin.site.register(News)
-admin.site.register(Category, AdminCategory)

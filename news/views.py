@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.views.generic import ListView, DetailView
 from django.http import Http404
 from django.shortcuts import get_list_or_404, get_object_or_404
+from django.core.paginator import Paginator
 
 from news.forms import SearchForm
 from news.models import News, Category
@@ -13,9 +14,16 @@ def index(request):
     form = SearchForm()
     title = 'Главная страница'
 
-    news_list = []
     cats = Category.objects.prefetch_related('news_set').all()
-    for cat in cats:
+    
+    paginator = Paginator(cats, 2)
+
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+
+    news_list = []
+
+    for cat in page.object_list:
         news_list.append(cat.news_set.all()[:10])
 
     context = {
