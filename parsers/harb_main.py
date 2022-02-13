@@ -23,7 +23,7 @@ def parse(url: str):
     for article in articles:
         a = article.find('a', {'class': 'tm-article-snippet__title-link'})
         titles.append(a.text)
-        links.append('https://habr.com/ru/' + a.get('href'))
+        links.append('https://habr.com' + a.get('href'))
 
     return titles, links
 

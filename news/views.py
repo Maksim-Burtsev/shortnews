@@ -3,7 +3,7 @@ from django.views.generic  import ListView, DetailView
 from .models import News, Category
 from .forms import SearchForm
 from django.http import Http404
-from django.shortcuts import get_list_or_404
+from django.shortcuts import get_list_or_404, get_object_or_404
 
 def index(request):
     
@@ -25,13 +25,14 @@ def index(request):
 
 def show_category(request, cat_slug):
     
-    title = Category.objects.get(slug=cat_slug)
+    title = get_object_or_404(Category, slug=cat_slug)
     
     if request.method == "POST":
-        news_list = News.objects.filter(title__icontains=request.POST.get('query'))
+        news_list = get_list_or_404(News, title__icontains=request.POST.get('query'))
         form = SearchForm(request.POST) 
     else:
-        news_list = News.objects.filter(cat_id=title.pk)
+        news_list = get_list_or_404(News, cat_id=title.pk)
+        # news_list = News.objects.filter(cat_id=title.pk)
         form = SearchForm()
 
     context = {
@@ -51,7 +52,7 @@ def search(request):
         flag = True
         for cat in categories:
             if query.lower() == cat.name.lower():
-                news_list = News.objects.filter(cat_id=cat.pk)
+                news_list = get_list_or_404(News, cat_id=cat.pk)
                 flag = False
                 break
         if flag:
