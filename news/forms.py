@@ -1,7 +1,5 @@
-from dataclasses import field
-from re import A
 from django import forms
-from .models import News
+from news.models import News
 
 class SearchForm(forms.Form):
     query = forms.CharField(label='')

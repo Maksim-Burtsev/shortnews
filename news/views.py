@@ -1,9 +1,10 @@
 from django.shortcuts import redirect, render
 from django.views.generic import ListView, DetailView
-from .models import News, Category
-from .forms import SearchForm
 from django.http import Http404
 from django.shortcuts import get_list_or_404, get_object_or_404
+
+from news.forms import SearchForm
+from news.models import News, Category
 
 
 def index(request):
@@ -52,7 +53,7 @@ def show_category(request, cat_slug):
 
 def search(request):
     """Выводит результаты поиска"""
-    
+
     query = request.GET.get('query')
     form = SearchForm(request.GET)
     if form.is_valid():
