@@ -1,12 +1,14 @@
 from django.shortcuts import redirect, render
-from django.views.generic  import ListView, DetailView
+from django.views.generic import ListView, DetailView
 from .models import News, Category
 from .forms import SearchForm
 from django.http import Http404
 from django.shortcuts import get_list_or_404, get_object_or_404
 
+
 def index(request):
-    
+    """Обратаывает главную страницу"""
+
     form = SearchForm()
     title = 'Главная страница'
 
@@ -16,36 +18,42 @@ def index(request):
         news_list.append(cat.news_set.all()[:10])
 
     context = {
-        'title' : title,
-        'form' : form,
-        'news_list' : news_list,
+        'title': title,
+        'form': form,
+        'news_list': news_list,
     }
-    
+
     return render(request, 'news/index.html', context=context)
 
+
 def show_category(request, cat_slug):
-    
+    """Выводит все посты конкретной категории на сайте"""
+
     title = get_object_or_404(Category, slug=cat_slug)
-    
+
     if request.method == "POST":
-        news_list = get_list_or_404(News, title__icontains=request.POST.get('query'))
-        form = SearchForm(request.POST) 
+        news_list = get_list_or_404(
+            News, title__icontains=request.POST.get('query'))
+        form = SearchForm(request.POST)
     else:
         news_list = get_list_or_404(News, cat_id=title.pk)
         # news_list = News.objects.filter(cat_id=title.pk)
         form = SearchForm()
 
     context = {
-        'title' : title,
-        'news_list' : news_list,
-        'form' : form,
-        'cat_slug' : cat_slug,
+        'title': title,
+        'news_list': news_list,
+        'form': form,
+        'cat_slug': cat_slug,
     }
 
     return render(request, 'news/more.html', context=context)
 
+
 def search(request):
-    query = request.GET.get('query') 
+    """Выводит результаты поиска"""
+    
+    query = request.GET.get('query')
     form = SearchForm(request.GET)
     if form.is_valid():
         categories = Category.objects.all()
@@ -59,8 +67,8 @@ def search(request):
             news_list = get_list_or_404(News, title__icontains=query)
         title = 'Результаты поиска'
         context = {
-            'title' : title,
-            'news_list' : news_list,
+            'title': title,
+            'news_list': news_list,
         }
         return render(request, 'news/search.html', context=context)
     else:
@@ -78,7 +86,7 @@ def search(request):
 #         context = super().get_context_data(**kwargs)
 #         context['title'] = 'Главная страница'
 #         context['categories'] = Category.objects.all()
-        
+
 #         return context
 
 #     def get_queryset(self):
