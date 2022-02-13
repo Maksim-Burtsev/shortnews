@@ -8,6 +8,11 @@
             {{f}}
         {% endfor %}
         <button type="submit">Search</button>
+        <div style="float:right; margin-right:77px;font-size:17px;">
+            {% for curr in currency %}
+                {{curr}}: {{curr.price}} RUB<br>
+            {% endfor %}
+        </div>
     </form>
     
     {% for news in news_list %}

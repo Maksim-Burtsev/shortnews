@@ -1,5 +1,7 @@
+from lib2to3.pgen2.token import CIRCUMFLEXEQUAL
 from django.contrib import admin
-from news.models import Category, News
+
+from news.models import Category, News, Currency
 
 @admin.register(Category)
 class AdminCategory(admin.ModelAdmin):
@@ -9,3 +11,4 @@ class AdminCategory(admin.ModelAdmin):
 
 
 admin.site.register(News)
+admin.site.register(Currency)

@@ -1,3 +1,4 @@
+from locale import currency
 from django.shortcuts import redirect, render
 from django.views.generic import ListView, DetailView
 from django.http import Http404
@@ -5,7 +6,7 @@ from django.shortcuts import get_list_or_404, get_object_or_404
 from django.core.paginator import Paginator
 
 from news.forms import SearchForm
-from news.models import News, Category
+from news.models import News, Category, Currency
 
 
 def index(request):
@@ -13,6 +14,7 @@ def index(request):
 
     form = SearchForm()
     title = 'Главная страница'
+    currs = Currency.objects.all()
 
     cats = Category.objects.prefetch_related('news_set').all()
 
@@ -31,6 +33,7 @@ def index(request):
         'form': form,
         'news_list': news_list,
         'page_obj': page_obj,
+        'currency' : currs,
     }
 
     return render(request, 'news/index.html', context=context)
@@ -40,6 +43,7 @@ def show_category(request, cat_slug):
     """Выводит все посты конкретной категории на сайте"""
 
     title = get_object_or_404(Category, slug=cat_slug)
+    curr = Currency.objects.all()
 
     if request.method == "POST":
         news_list = get_list_or_404(
@@ -55,6 +59,7 @@ def show_category(request, cat_slug):
         'news_list': news_list,
         'form': form,
         'cat_slug': cat_slug,
+        'currency' : curr,
     }
 
     return render(request, 'news/more.html', context=context)

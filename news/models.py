@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 
 class News(models.Model):
-    """Модель одной новости на сайте."""
+    """Модель одной новости на сайте"""
 
     title = models.CharField(max_length=200, verbose_name='Заголовок')
     
@@ -24,7 +24,7 @@ class News(models.Model):
         ordering = ['pk']
 
 class Category(models.Model):
-    """Каждая категория, или сайт, откуда парсятся данные)."""
+    """Каждая категория, или сайт, откуда парсятся данные"""
 
     name = models.CharField(max_length=200, verbose_name='Категория')
     
@@ -47,6 +47,23 @@ class Category(models.Model):
         verbose_name = 'категория'
         verbose_name_plural = 'Категории'
         ordering = ['priority']
+
+class Currency(models.Model):
+    """Валюты"""
+
+    name = models.CharField('Валюта', max_length=200)
+
+    price = models.DecimalField('Стоимость', decimal_places=2, max_digits=10)
+
+    time_updated = models.DateTimeField('Последнее обновление', auto_now=True)
+
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'валюта'
+        verbose_name_plural = 'Валюты'
 
         
 
