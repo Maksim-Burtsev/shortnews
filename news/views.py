@@ -129,6 +129,15 @@ def register(request):
 def autorize(request):
     """Обрабатывает страницу авторизации пользователя"""
 
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+        else:
+            return redirect('autorize')
+
     title = 'Авторизация'
     form = AuthenticationForm()
     context = {
@@ -139,6 +148,7 @@ def autorize(request):
     return render(request, 'news/autorize.html', context=context)
 
 def logout_user(request):
+    """Выход из учётной записи"""
 
     logout(request)
     

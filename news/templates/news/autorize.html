@@ -1,13 +1,14 @@
 {% extends 'news/base.html' %}
 
 {% block content %}
-    <form action="" method="post">
+    <form action="{% url 'authorization' %}" method="post">
         {% csrf_token %}
         <div style="position:fixed; top: 50%; left:50%;margin-top:-200px;margin-left:-200px; ">
             
             {% for f in form %}
                 <p style="font-size:17px;">{{ f.label }} : {{ f }}</p>
+            {% endfor %}
         <button type="submit">Войти</button></div>
-
+            
     </form>
 {% endblock %}
