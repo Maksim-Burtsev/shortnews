@@ -1,10 +1,8 @@
-from locale import currency
 from django.shortcuts import redirect, render
-from django.views.generic import ListView, DetailView
-from django.http import Http404
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.core.paginator import Paginator
 from django.core.exceptions import ValidationError
+from django.core.cache import cache
 
 from news.forms import SearchForm
 from news.models import News, Category, Currency
@@ -15,7 +13,11 @@ def index(request):
 
     form = SearchForm()
     title = 'Главная страница'
-    currs = Currency.objects.all()
+
+    currs = cache.get('currs')
+    if not currs:
+        currs = Currency.objects.all()
+        cache.set('currs', currs, 60)
 
     cats = Category.objects.prefetch_related('news_set').all()
 
@@ -35,6 +37,7 @@ def index(request):
         'news_list': news_list,
         'page_obj': page_obj,
         'currency' : currs,
+        'cats' : cats,
     }
 
     return render(request, 'news/index.html', context=context)
@@ -85,49 +88,8 @@ def search(request):
         context = {
             'title': title,
             'news_list': news_list,
+            'cats' : categories,
         }
         return render(request, 'news/search.html', context=context)
     else:
         raise ValidationError('Неправило заполненная форма!')
-
-# class NewsHome(ListView):
-#     """Класс, который выводит главную страницу."""
-
-#     model = News
-#     template_name = 'news/index.html'
-#     form_class = TestForm
-#     context_object_name = 'news_list'
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['title'] = 'Главная страница'
-#         context['categories'] = Category.objects.all()
-
-#         return context
-
-#     def get_queryset(self):
-#         items = []
-#         cats = Category.objects.prefetch_related('news_set').all()
-#         for cat in cats:
-#             # items.append(cat.news_set.select_related('cat')[:10])
-#             items.append(cat.news_set.all()[:10])
-
-#         return items
-#         # return News.objects.all()[:7]
-
-# class NewsCategory(ListView):
-#     """Класс, который выводит данные конкретной категории."""
-
-#     model = News
-#     template_name = 'news/more.html'
-
-#     context_object_name = 'news_list'
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['title'] = Category.objects.get(slug=self.kwargs['cat_slug'])
-
-#         return context
-
-#     def get_queryset(self):
-#         return News.objects.filter(cat__slug=self.kwargs['cat_slug'])

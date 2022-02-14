@@ -1,6 +1,11 @@
 {% extends 'news/base.html' %}
 
 {% block content %}
+    <nav style="margin-bottom:20px;">
+        {% for cat in cats %}
+            <a href="{{ cat.get_absolute_url }}" style="font-size:17px; margin-right:5px;"> {{ cat }}</a>
+        {% endfor %}
+    </nav>  
     <a href="{% url 'home' %}" > <p style="font-size: 30px;">Назад</p></a> 
     {% for news in news_list %}
         <a href="{{news.link}}" target="_blank"><p>{{ news }}</p></a>

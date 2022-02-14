@@ -1,7 +1,12 @@
 {% extends 'news/base.html' %}
 
 {% block content %}
-    
+    <nav style="margin-bottom:20px;">
+        {% for cat in cats %}
+            <a href="{{ cat.get_absolute_url }}" style="font-size:17px; margin-right:5px;"> {{ cat }}</a>
+        {% endfor %}
+    </nav>    
+
     <form action="{% url 'search' %}" method="get">
         {% csrf_token %}
         {% for f in form %}
