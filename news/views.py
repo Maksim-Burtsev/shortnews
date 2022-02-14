@@ -4,6 +4,9 @@ from django.core.paginator import Paginator
 from django.core.exceptions import ValidationError
 from django.core.cache import cache
 from django.contrib.auth.forms import UserCreationForm  
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
+
 
 from news.forms import SearchForm
 from news.models import News, Category, Currency
@@ -105,6 +108,14 @@ def hide(request, post_id):
 
 def register(request):
     """Обрабатывает страницу регистрации пользователя"""
+
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login (request, user)
+        return redirect('home')
+    
     title = 'Регистрация'
     form = UserCreationForm()
 
@@ -114,3 +125,21 @@ def register(request):
     }
 
     return render(request, 'news/register.html', context=context)
+
+def autorize(request):
+    """Обрабатывает страницу авторизации пользователя"""
+
+    title = 'Авторизация'
+    form = AuthenticationForm()
+    context = {
+        'title' : title,
+        'form' : form,
+    }
+
+    return render(request, 'news/autorize.html', context=context)
+
+def logout_user(request):
+
+    logout(request)
+    
+    return redirect('home')

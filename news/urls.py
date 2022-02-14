@@ -7,5 +7,7 @@ urlpatterns = [
     path('<slug:cat_slug>',show_category, name='category' ),
     path ('search/', search, name='search'),
     path('hide/<int:post_id>', hide, name='hide post'),
-    path('register/', register, name='register')
+    path('register/', register, name='register'),
+    path ('authorization/', autorize, name='authorization'),
+    path ('logout/', logout_user, name='logout'),
 ]

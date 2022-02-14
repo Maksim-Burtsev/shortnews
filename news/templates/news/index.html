@@ -5,7 +5,12 @@
         {% for cat in cats %}
             <a href="{{ cat.get_absolute_url }}" style="font-size:17px; margin-right:5px;"> {{ cat }}</a>
         {% endfor %}
+        {% if request.user.is_authenticated  %}
+            <a href="{% url 'logout' %}" style="font-size:17px;float:right;margin-right:77px;">logout</a>
+        {% else  %}
         <a href="{% url 'register' %}" style="font-size:17px;float:right;margin-right:77px;">sign up</a>
+        <a href="{% url 'authorization' %}" style="font-size:17px;float:right;margin-right:30px;">sign in</a>
+        {% endif %}
     </nav>    
 
     <form action="{% url 'search' %}" method="get">
