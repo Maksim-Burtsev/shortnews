@@ -29,7 +29,7 @@ def index(request):
     news_list = []
 
     for cat in page_obj.object_list:
-        news_list.append(cat.news_set.all()[:10])
+        news_list.append(cat.news_set.filter(is_published=True)[:10])
 
     context = {
         'title': title,
@@ -51,11 +51,10 @@ def show_category(request, cat_slug):
 
     if request.method == "POST":
         news_list = get_list_or_404(
-            News, title__icontains=request.POST.get('query'))
+            News, title__icontains=request.POST.get('query'), is_published=True)
         form = SearchForm(request.POST)
     else:
-        news_list = get_list_or_404(News, cat_id=title.pk)
-        # news_list = News.objects.filter(cat_id=title.pk)
+        news_list = get_list_or_404(News, cat_id=title.pk, is_published=True)
         form = SearchForm()
 
     context = {
@@ -79,11 +78,11 @@ def search(request):
         flag = True
         for cat in categories:
             if query.lower() == cat.name.lower():
-                news_list = get_list_or_404(News, cat_id=cat.pk)
+                news_list = get_list_or_404(News, cat_id=cat.pk,is_published=True)
                 flag = False
                 break
         if flag:
-            news_list = get_list_or_404(News, title__icontains=query)
+            news_list = get_list_or_404(News, title__icontains=query, is_published=True)
         title = 'Результаты поиска'
         context = {
             'title': title,
@@ -93,3 +92,12 @@ def search(request):
         return render(request, 'news/search.html', context=context)
     else:
         raise ValidationError('Неправило заполненная форма!')
+
+def hide(request, post_id):
+    """Скрывает пост"""
+
+    post = get_object_or_404(News, pk=post_id)
+    post.is_published = False
+    post.save()
+    
+    return redirect('home')

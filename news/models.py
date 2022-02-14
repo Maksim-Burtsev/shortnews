@@ -35,6 +35,8 @@ class Category(models.Model):
     link = models.CharField(max_length=200, verbose_name='Ссылка')
 
     priority = models.IntegerField('Приоритет', null=True, blank=True)
+    
+    is_puslished = models.BooleanField('Опубликовано', default=True)
 
     def __str__(self):
         return self.name
