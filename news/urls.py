@@ -6,5 +6,6 @@ urlpatterns = [
     path ('', index, name='home'),
     path('<slug:cat_slug>',show_category, name='category' ),
     path ('search/', search, name='search'),
-    path('hide/<int:post_id>', hide, name='hide post')
+    path('hide/<int:post_id>', hide, name='hide post'),
+    path('register/', register, name='register')
 ]

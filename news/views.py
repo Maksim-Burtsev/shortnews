@@ -3,6 +3,7 @@ from django.shortcuts import get_list_or_404, get_object_or_404
 from django.core.paginator import Paginator
 from django.core.exceptions import ValidationError
 from django.core.cache import cache
+from django.contrib.auth.forms import UserCreationForm  
 
 from news.forms import SearchForm
 from news.models import News, Category, Currency
@@ -101,3 +102,15 @@ def hide(request, post_id):
     post.save()
     
     return redirect('home')
+
+def register(request):
+    """Обрабатывает страницу регистрации пользователя"""
+    title = 'Регистрация'
+    form = UserCreationForm()
+
+    context = {
+        'title' : title,
+        'form' : form,
+    }
+
+    return render(request, 'news/register.html', context=context)
