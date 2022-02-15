@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 
 
-from news.forms import SearchForm
+from news.forms import SearchForm, UserAutorizeForm, UserRegisterForm
 from news.models import News, Category, Currency
 
 
@@ -117,7 +117,7 @@ def register(request):
         return redirect('home')
     
     title = 'Регистрация'
-    form = UserCreationForm()
+    form = UserRegisterForm()
 
     context = {
         'title' : title,
@@ -139,7 +139,7 @@ def autorize(request):
             return redirect('autorize')
 
     title = 'Авторизация'
-    form = AuthenticationForm()
+    form = UserAutorizeForm()
     context = {
         'title' : title,
         'form' : form,
