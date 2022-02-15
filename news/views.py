@@ -3,17 +3,22 @@ from django.shortcuts import get_list_or_404, get_object_or_404
 from django.core.paginator import Paginator
 from django.core.exceptions import ValidationError
 from django.core.cache import cache
-from django.contrib.auth.forms import UserCreationForm  
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 
 
 from news.forms import SearchForm, UserAutorizeForm, UserRegisterForm
 from news.models import News, Category, Currency
+from news.habr_parser import habr_parser_main
 
 
 def index(request):
     """Обратаывает главную страницу"""
+
+    if request.method == "POST" and request.user.is_superuser:
+        if request.POST.get('update'):
+            habr_parser_main()
 
     form = SearchForm()
     title = 'Главная страница'
@@ -40,8 +45,8 @@ def index(request):
         'form': form,
         'news_list': news_list,
         'page_obj': page_obj,
-        'currency' : currs,
-        'cats' : cats,
+        'currency': currs,
+        'cats': cats,
     }
 
     return render(request, 'news/index.html', context=context)
@@ -66,7 +71,7 @@ def show_category(request, cat_slug):
         'news_list': news_list,
         'form': form,
         'cat_slug': cat_slug,
-        'currency' : curr,
+        'currency': curr,
     }
 
     return render(request, 'news/more.html', context=context)
@@ -82,20 +87,23 @@ def search(request):
         flag = True
         for cat in categories:
             if query.lower() == cat.name.lower():
-                news_list = get_list_or_404(News, cat_id=cat.pk,is_published=True)
+                news_list = get_list_or_404(
+                    News, cat_id=cat.pk, is_published=True)
                 flag = False
                 break
         if flag:
-            news_list = get_list_or_404(News, title__icontains=query, is_published=True)
+            news_list = get_list_or_404(
+                News, title__icontains=query, is_published=True)
         title = 'Результаты поиска'
         context = {
             'title': title,
             'news_list': news_list,
-            'cats' : categories,
+            'cats': categories,
         }
         return render(request, 'news/search.html', context=context)
     else:
         raise ValidationError('Неправило заполненная форма!')
+
 
 def hide(request, post_id):
     """Скрывает пост"""
@@ -103,8 +111,9 @@ def hide(request, post_id):
     post = get_object_or_404(News, pk=post_id)
     post.is_published = False
     post.save()
-    
+
     return redirect('home')
+
 
 def register(request):
     """Обрабатывает страницу регистрации пользователя"""
@@ -113,18 +122,19 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login (request, user)
+            login(request, user)
         return redirect('home')
-    
+
     title = 'Регистрация'
     form = UserRegisterForm()
 
     context = {
-        'title' : title,
-        'form' : form,
+        'title': title,
+        'form': form,
     }
 
     return render(request, 'news/register.html', context=context)
+
 
 def autorize(request):
     """Обрабатывает страницу авторизации пользователя"""
@@ -135,21 +145,23 @@ def autorize(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            return redirect('home')
         else:
             return redirect('autorize')
 
     title = 'Авторизация'
     form = UserAutorizeForm()
     context = {
-        'title' : title,
-        'form' : form,
+        'title': title,
+        'form': form,
     }
 
     return render(request, 'news/autorize.html', context=context)
+
 
 def logout_user(request):
     """Выход из учётной записи"""
 
     logout(request)
-    
+
     return redirect('home')

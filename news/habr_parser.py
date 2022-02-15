@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-from funcs import clean_data, update_database
 import sqlite3
 import datetime
 
@@ -58,7 +57,9 @@ def parse(url: str):
     return titles, links
 
 
-def main():
+def habr_parser_main():
+    """Основная функция программы"""
+    
     titles, links = [], []
 
     for i in range(1, 6):
@@ -73,4 +74,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    habr_parser_main()

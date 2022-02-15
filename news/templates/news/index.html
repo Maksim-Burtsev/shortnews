@@ -25,6 +25,15 @@
             {% endfor %}
         </div>
     </form>
+
+    {% if request.user.is_superuser %}
+    <div style="float:right;margin-top:50px;margin-right:-100px;">
+        <form action = "{% url 'home' %}" method = "POST">
+            {% csrf_token%}
+            <input class="io" id="update" type="submit" name="update"  value="Обновить БД"/>
+        </form>
+    </div>
+    {% endif %}
     
     {% for news in news_list %}
         <p style="font-size: 30px;"><a href="{{ news.0.cat.link}}" target="_blank"><strong>{{ news.0.cat}}</strong> </a></p>
