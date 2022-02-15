@@ -7,10 +7,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 
-
 from news.forms import SearchForm, UserAutorizeForm, UserRegisterForm
 from news.models import News, Category, Currency
-from news.habr_parser import habr_parser_main
+from news.parsers.activate import update_db
 
 
 def index(request):
@@ -18,7 +17,7 @@ def index(request):
 
     if request.method == "POST" and request.user.is_superuser:
         if request.POST.get('update'):
-            habr_parser_main()
+            update_db()
 
     form = SearchForm()
     title = 'Главная страница'

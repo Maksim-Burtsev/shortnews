@@ -8,6 +8,7 @@ import sqlite3
 URL = 'https://www.nytimes.com/section/technology'
 
 def parser():
+    """Парсит данные и формирует из них словарь"""
     response = requests.get(URL)
     soup = BeautifulSoup(response.text, 'lxml')
     
@@ -30,10 +31,13 @@ def parser():
     return data
 
 def make_json(data: dict):
+    """Формирует json из данных после парсинга"""
+
     with open ('nyt_tech.json', 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=3, ensure_ascii=False)
 
 def get_data():
+    """Распаковывает json и формирует из него готовые строки для базы данных"""
 
     with open('nyt_tech.json', 'r', encoding='utf-8') as f:
         data = json.load(f)
@@ -51,6 +55,7 @@ def get_data():
     return articles
 
 def update_database():
+    """Обновляет базу данных"""
 
     sqlite_connection = sqlite3.connect("C:\\Users\\user\\h_w\\shortnews\\db.sqlite3")
 
@@ -67,10 +72,10 @@ def update_database():
 
     os.remove('nyt_tech.json')
 
-def main():
+def nyt_tech_main():
     data = parser()
     make_json(data)
     update_database()
 
 if __name__ == '__main__':
-    main()
+    nyt_tech_main()

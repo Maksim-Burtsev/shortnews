@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-from funcs import clean_data, update_database
 import sqlite3
 import datetime
 
@@ -23,10 +22,10 @@ def clean_data(titles: list, links: list, post_id: int) -> list:
 def update_database(data: list[tuple]):
     """Обновляет базу данных"""
 
-    # sqlite_connection = sqlite3.connect(
-    #     "C:\\Users\\user\\h_w\\shortnews\\db.sqlite3")
-    sqlite_connection = sqlite3.connect("E:\shortnews\shortnews\db.sqlite3")
-
+    try:
+       sqlite_connection = sqlite3.connect("E:\shortnews\shortnews\db.sqlite3")
+    except:
+        sqlite_connection = sqlite3.connect("C:\\Users\\user\\h_w\\shortnews\\db.sqlite3")
     cursor = sqlite_connection.cursor()
 
     sql_update_query = """Update news_news set title = ?, link = ?, time_created = ? where id = ?"""
@@ -58,7 +57,9 @@ def parse(url: str):
     return titles, links
 
 
-def main():
+def habr_parser_main():
+    """Основная функция программы"""
+    
     titles, links = [], []
 
     for i in range(1, 6):
@@ -73,4 +74,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    habr_parser_main()

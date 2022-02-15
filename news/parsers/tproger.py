@@ -1,9 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
-import sqlite3
 import datetime
+import sqlite3
 
-URL = 'https://habr.com/ru/all/'
+URL = 'https://tproger.ru/'
+
 
 def clean_data(titles: list, links: list, post_id: int) -> list:
     """Получает на вход списки названия и ссылок статей и формирует готовые кортежи для записи в БД"""
@@ -22,9 +23,8 @@ def clean_data(titles: list, links: list, post_id: int) -> list:
 def update_database(data: list[tuple]):
     """Обновляет базу данных"""
 
-    # sqlite_connection = sqlite3.connect(
-    #     "C:\\Users\\user\\h_w\\shortnews\\db.sqlite3")
-    sqlite_connection = sqlite3.connect("E:\shortnews\shortnews\db.sqlite3")
+    sqlite_connection = sqlite3.connect(
+        "C:\\Users\\user\\h_w\\shortnews\\db.sqlite3")
 
     cursor = sqlite_connection.cursor()
 
@@ -36,42 +36,39 @@ def update_database(data: list[tuple]):
 
     sqlite_connection.close()
 
-def parse(url: str):
-    """Парсит со страницы все названия статей и ссылки на них"""
+def parse(page_num: int):
+    """Парсит веб-страницу и возвращает с неё все заголовки и ссылки в виде списков"""
+
+    url = URL + f"page/{page_num}/"
 
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'lxml')
 
-    div = soup.find('div', {'class': 'tm-articles-list'})
+    div = soup.find('div', {'class': 'main__posts-wrapper'})
 
-    articles = div.find_all('article', {'class': 'tm-articles-list__item'})
+    a = div.find_all('a', {'class': 'article__link'})
+    title = []
+    link = []
 
-    titles = []
-    links = []
+    for i in a:
+        title.append(i.text)
+        link.append(i.get('href'))
 
-    for article in articles:
-        a = article.find('a', {'class': 'tm-article-snippet__title-link'})
-        titles.append(a.text)
-        links.append('https://habr.com' + a.get('href'))
-
-    return titles, links
+    return title, link
 
 
-def habr_parser_main():
-    """Основная функция программы"""
-    
+def tproger_main():
     titles, links = [], []
 
-    for i in range(1, 6):
-        url = URL + f'page{i}/'
-        title, link = parse(url)
+    for i in range(1, 2):
+        title, link = parse(i)
 
         titles.extend(title)
         links.extend(link)
 
-    data = clean_data(titles, links, 131)
+    data = clean_data(titles, links, 111)
     update_database(data)
 
 
 if __name__ == '__main__':
-    habr_parser_main()
+    tproger_main()

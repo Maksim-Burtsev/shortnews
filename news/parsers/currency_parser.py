@@ -38,8 +38,11 @@ def get_bitcoin_price():
 def update_database(data):
     """Обновляет значения валют в БД"""
 
-    sqlite_connection = sqlite3.connect(
-        "C:\\Users\\user\\h_w\\shortnews\\db.sqlite3")
+    try:
+        sqlite_connection = sqlite3.connect(
+            "C:\\Users\\user\\h_w\\shortnews\\db.sqlite3")
+    except:
+        sqlite_connection = sqlite3.connect("E:\shortnews\shortnews\db.sqlite3")
 
     cursor = sqlite_connection.cursor()
 
@@ -52,7 +55,7 @@ def update_database(data):
     sqlite_connection.close()
 
 
-def main():
+def currency_main():
     data = []
     # data.append(get_bitcoin_price())
     data.append(get_euro__dollar_price(DOLLAR_URL, 1, '$'))
@@ -63,4 +66,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    currency_main()
