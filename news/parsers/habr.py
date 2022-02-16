@@ -1,80 +1,52 @@
 import requests
 from bs4 import BeautifulSoup
-import json
-import sqlite3
 import datetime
-import os
+import sqlite3
 
-N = 1
-
-URLS = [
-    f'https://habr.com/ru/search/page{i}/?q=Python&target_type=posts&order=date' for i in range(1, 6)]
+URL = 'https://habr.com/ru/search/page{}/?q=Python&target_type=posts&order=date'
 
 
-def make_json():
-    """Парсит данные каждой страницы и делает из них json"""
-
-    data_dict = {}
-
-    for page in range(len(URLS)):
-        data_dict[page] = parser(URLS[page])
-
-    with open('habr.json', 'w', encoding='utf-8') as f:
-        json.dump(data_dict, f, indent=4, ensure_ascii=False)
-
-
-def parser(url: str):
-    """Парсит одну страницу и возвращает результат в виде словаря"""
-
-    global N
-
-    res_dict = {}
+def parser(url) -> list:
+    """Парсит веб-страницу и возвращает оттуда все заголовки и ссылки на статьи"""
 
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'lxml')
 
     div = soup.find('div', {'class': 'tm-articles-list'})
-    links = div.find_all('a', {'class': 'tm-article-snippet__title-link'})
 
-    for i in range(len(links)):
-        res_dict[N] = {
-            'title': links[i].text,
-            'link': 'https://habr.com' + links[i].get('href')}
+    articles = div.find_all('article', {'class': 'tm-articles-list__item'})
 
-        N += 1
+    res = []
 
-    return res_dict
+    for article in articles:
+        title = article.find(
+            'a', {'class': 'tm-article-snippet__title-link'}).text
+        link = 'https://habr.com' + \
+            article.find(
+                'a', {'class': 'tm-article-snippet__title-link'}).get('href')
 
+        res.append((title, link))
 
-def get_data():
-    """Распаковывает json и формирует из него готовые tuple для записи в базу данных"""
-
-    with open('habr.json', 'r', encoding='utf-8') as f:
-        data = json.load(f)
-
-    post_num = 1
-    articles = []
-    news_id = 1
-
-    for i in range(5):
-        for j in range(20):
-            try:
-                articles.append(
-                    (data[str(i)][str(post_num)]['title'], data[str(i)][str(post_num)]['link'], datetime.datetime.now(), news_id))
-            except:
-                articles.append(
-                    ('oops', '#', datetime.datetime.now(), news_id))
-
-            post_num += 1
-            news_id += 1
-
-    return articles
+    return res
 
 
-def update_habr_python():
-    """Обновляет базу данных"""
+def pack_data(data: list):
+    """Формирует готовые кортежи для записи в БД"""
+    db_id = 1
+    clean_data = []
 
-    make_json()
+    for article in data:
+        clean_data.append(
+            (article[0], article[1], datetime.datetime.now(), db_id))
+
+        db_id += 1
+
+    return clean_data
+
+
+def update_db(clean_data):
+    """Обновляет базу данных
+    """
 
     try:
         sqlite_connection = sqlite3.connect(
@@ -87,15 +59,24 @@ def update_habr_python():
 
     sql_update_query = """Update news_news set title = ?, link = ?, time_created = ? where id = ?"""
 
-    articles = get_data()
-    cursor.executemany(sql_update_query, articles)
+    cursor.executemany(sql_update_query, clean_data)
 
     sqlite_connection.commit()
     cursor.close()
 
     sqlite_connection.close()
 
-    os.remove('habr.json')
+
+def update_habr_python():
+
+    res = []
+
+    for i in range(1, 6):
+        res.extend(parser(URL.format(i)))
+
+    data = pack_data(res)
+
+    update_db(data)
 
 
 if __name__ == '__main__':
