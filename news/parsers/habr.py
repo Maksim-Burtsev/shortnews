@@ -62,22 +62,26 @@ def get_data():
                 articles.append(
                     (data[str(i)][str(post_num)]['title'], data[str(i)][str(post_num)]['link'], datetime.datetime.now(), news_id))
             except:
-                articles.append(('oops', '#', datetime.datetime.now(), news_id))
-                
+                articles.append(
+                    ('oops', '#', datetime.datetime.now(), news_id))
+
             post_num += 1
             news_id += 1
 
     return articles
 
 
-def update_database():
+def update_habr_python():
     """Обновляет базу данных"""
+
+    make_json()
 
     try:
         sqlite_connection = sqlite3.connect(
             "C:\\Users\\user\\h_w\\shortnews\\db.sqlite3")
     except:
-        sqlite_connection = sqlite3.connect("E:\shortnews\shortnews\db.sqlite3")
+        sqlite_connection = sqlite3.connect(
+            "E:\shortnews\shortnews\db.sqlite3")
 
     cursor = sqlite_connection.cursor()
 
@@ -94,10 +98,5 @@ def update_database():
     os.remove('habr.json')
 
 
-def habr_main():
-    make_json()
-    update_database()
-
-
 if __name__ == '__main__':
-    habr_main()
+    update_habr_python()
