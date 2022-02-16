@@ -23,8 +23,11 @@ def clean_data(titles: list, links: list, post_id: int) -> list:
 def update_database(data: list[tuple]):
     """Обновляет базу данных"""
 
-    sqlite_connection = sqlite3.connect(
-        "C:\\Users\\user\\h_w\\shortnews\\db.sqlite3")
+    try:
+        sqlite_connection = sqlite3.connect(
+            "C:\\Users\\user\\h_w\\shortnews\\db.sqlite3")
+    except:
+        sqlite_connection = sqlite3.connect("E:\shortnews\shortnews\db.sqlite3")
 
     cursor = sqlite_connection.cursor()
 

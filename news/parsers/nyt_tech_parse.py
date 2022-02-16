@@ -57,7 +57,11 @@ def get_data():
 def update_database():
     """Обновляет базу данных"""
 
-    sqlite_connection = sqlite3.connect("C:\\Users\\user\\h_w\\shortnews\\db.sqlite3")
+    try:
+        sqlite_connection = sqlite3.connect(
+            "C:\\Users\\user\\h_w\\shortnews\\db.sqlite3")
+    except:
+        sqlite_connection = sqlite3.connect("E:\shortnews\shortnews\db.sqlite3")
 
     cursor = sqlite_connection.cursor()
 
