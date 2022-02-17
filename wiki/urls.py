@@ -1,6 +1,7 @@
 from django.urls import path, include
-from wiki.views import index
+from wiki.views import WikiFeed
+
 
 urlpatterns = [
-    path ('', index, name='home'),
+    path('', WikiFeed.as_view(), name='home'),
 ]
