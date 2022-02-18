@@ -1,5 +1,5 @@
 from django.urls import path, include
-from wiki.views import WikiFeed, index
+from wiki.views import WikiFeed
 
 
 urlpatterns = [

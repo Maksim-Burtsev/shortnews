@@ -1,13 +1,37 @@
 {% extends 'wiki/base.html' %}
 
 {% block content %}
- <div style="margin:auto;">
+
+<div class="pagination" style=" text-align: center;margin-top:30px;">
+    <span class="page-links">
+        {% if page_obj.has_previous %}
+            <a href="{% url 'home1' %}?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+        <span class="page-current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+        {% if page_obj.has_next %}
+            <a href="{% url 'home1' %}?page={{ page_obj.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+
+
+ <div>
         {% for article in articles %}
-                <p>{{ article.title }}</p>
-                <p>{{ article.summary }}</p>
-                <img src="{{ article.image_link }}" style="width:25%">
+                <p style="font-size:33px;text-align:center;"><a href="{{article.url}}" style="text-decoration:none;">
+                    {{ article.title }}</a></p>
+                <div style="width:650px;
+                margin-left: auto;
+                margin-right: auto;
+                text-align:center;">
+                {{ article.summary |truncatewords:50 }}</div>
+                <img src="{{ article.image_link }}" style="display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width:25%">
         {% endfor %}
-        <div class="pagination">
+        <div class="pagination" style=" text-align: center;margin-top:30px;">
                 <span class="page-links">
                     {% if page_obj.has_previous %}
                         <a href="{% url 'home1' %}?page={{ page_obj.previous_page_number }}">previous</a>
