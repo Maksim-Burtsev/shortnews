@@ -15,7 +15,7 @@ class WikiFeed(ListView):
     context_object_name = 'articles'
 
     def get_queryset(self):
-        articles = get_list_or_404(Article, is_published=True)
+        articles = get_list_or_404(Article.objects.order_by('?'), is_published=True)
         return articles
 
     def get_context_data(self, **kwargs):
