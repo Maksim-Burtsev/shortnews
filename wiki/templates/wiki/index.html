@@ -2,20 +2,7 @@
 
 {% block content %}
 
-<div class="pagination" style=" text-align: center;margin-top:30px;">
-    <span class="page-links">
-        {% if page_obj.has_previous %}
-            <a href="{% url 'home1' %}?page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
-        <span class="page-current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-        </span>
-        {% if page_obj.has_next %}
-            <a href="{% url 'home1' %}?page={{ page_obj.next_page_number }}">next</a>
-        {% endif %}
-    </span>
-</div>
-
+{% include 'wiki/pagination.html' %}
 
  <div>
         {% for article in articles %}
@@ -31,18 +18,6 @@
                 margin-right: auto;
                 width:25%">
         {% endfor %}
-        <div class="pagination" style=" text-align: center;margin-top:30px;">
-                <span class="page-links">
-                    {% if page_obj.has_previous %}
-                        <a href="{% url 'home1' %}?page={{ page_obj.previous_page_number }}">previous</a>
-                    {% endif %}
-                    <span class="page-current">
-                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-                    </span>
-                    {% if page_obj.has_next %}
-                        <a href="{% url 'home1' %}?page={{ page_obj.next_page_number }}">next</a>
-                    {% endif %}
-                </span>
-            </div>
+{% include 'wiki/pagination.html' %}
  </div>
 {% endblock %}
