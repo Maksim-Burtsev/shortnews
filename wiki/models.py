@@ -12,7 +12,7 @@ class Article(models.Model):
 
     url = models.URLField('Ссылка')
 
-    image = models.ImageField('Фото', upload_to='wiki_photo', blank=True)
+    image_link = models.CharField('Картинка', max_length=250, blank=True)
 
     is_published = models.BooleanField('Опубликовано', default=True)
 

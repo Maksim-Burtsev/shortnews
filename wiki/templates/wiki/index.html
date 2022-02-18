@@ -1,7 +1,12 @@
 {% extends 'wiki/base.html' %}
 
 {% block content %}
-    {% for article in articles %}
-        <p>{{ article }}</p>
-    {% endfor %}
+ <div style="margin:auto;">
+        {% for article in articles %}
+                <p>{{ article.title }}</p>
+                <p>{{ article.summary }}</p>
+                <img src="{{ article.image_link }}" style="width:25%">
+        {% endfor %}
+
+ </div>
 {% endblock %}
