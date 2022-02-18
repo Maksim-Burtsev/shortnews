@@ -9,7 +9,7 @@ from wiki.models import Article
 
 class WikiFeed(ListView):
 
-    # paginate_by = 20
+    paginate_by = 20
     model = Article
     template_name = 'wiki/index.html'
     context_object_name = 'articles'
@@ -22,11 +22,4 @@ class WikiFeed(ListView):
         context  = super().get_context_data(**kwargs)
         context['title'] = 'Случайные статьи'
 
-def index(request):
-
-    context = {
-        'title' : 'Случайные статьи',
-        'articles' : Article.objects.filter(is_published=True)
-    }
-
-    return render(request, 'wiki/index.html', context=context)
+        return context

@@ -3,6 +3,5 @@ from wiki.views import WikiFeed, index
 
 
 urlpatterns = [
-    # path('', WikiFeed.as_view(), name='home1'),
-    path('', index , name='home1'),
+    path('', WikiFeed.as_view(), name='home1'),
 ]
