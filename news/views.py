@@ -6,6 +6,7 @@ from django.core.cache import cache
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.db.models import Prefetch, OuterRef, Subquery
 
 from news.forms import SearchForm, UserAutorizeForm, UserRegisterForm
 from news.models import News, Category, Currency
@@ -170,16 +171,14 @@ def logout_user(request):
 def test(request):
 
     title = 'Main page'
-    cats = Category.objects.prefetch_related('news_set')
-
-    news_list = []
-
-    for cat in cats:
-        news_list.append(cat.news_set.filter(is_published=True)[:10])
-
+    # cats = Category.objects.prefetch_related(Prefetch('news_set', queryset=News.objects.filter(is_published=True)))
+    
+    subquery = Subquery(News.objects.filter(cat_id=OuterRef('cat_id'), is_published=True).values_list("id", flat=True)[:10])
+    print(subquery.all())
+    cats = Category.objects.prefetch_related(Prefetch('news_set', queryset=News.objects.filter(id__in=subquery)))
     context = {
-        'title' : title,
-        'news_list' : news_list,
+        'title': title,
+        'cats': cats,
     }
 
     return render(request, 'news/test.html', context=context)

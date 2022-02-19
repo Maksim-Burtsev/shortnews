@@ -1,5 +1,9 @@
 {% extends 'news/base.html' %}
 
 {% block content %}
-    {{news_list}}
+    {% for cat in cats %}
+        <p>{{cat.news_set.all.count}}</p>
+    {% endfor %}
+
+
 {% endblock %}
