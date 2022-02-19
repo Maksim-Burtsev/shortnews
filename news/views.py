@@ -37,7 +37,8 @@ def index(request):
     news_list = []
 
     for cat in page_obj.object_list:
-        news_list.append(cat.news_set.filter(is_published=True)[:10])
+        news_list.append(cat.news_set.
+                         filter(is_published=True).select_related('cat')[:10])
 
     context = {
         'title': title,
@@ -164,3 +165,21 @@ def logout_user(request):
     logout(request)
 
     return redirect('home')
+
+
+def test(request):
+
+    title = 'Main page'
+    cats = Category.objects.prefetch_related('news_set')
+
+    news_list = []
+
+    for cat in cats:
+        news_list.append(cat.news_set.filter(is_published=True)[:10])
+
+    context = {
+        'title' : title,
+        'news_list' : news_list,
+    }
+
+    return render(request, 'news/test.html', context=context)
