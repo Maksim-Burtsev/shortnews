@@ -21,7 +21,7 @@ class News(models.Model):
     class Meta:
         verbose_name = 'новость'
         verbose_name_plural = 'Новости'
-        ordering = ['pk']
+        # ordering = ['pk']
 
 class Category(models.Model):
     """Каждая категория, или сайт, откуда парсятся данные"""

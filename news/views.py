@@ -28,23 +28,18 @@ def index(request):
         currs = Currency.objects.all()
         cache.set('currs', currs, 60)
 
-    cats = Category.objects.prefetch_related('news_set').all()
+    subquery = Subquery(News.objects.filter(cat_id=OuterRef('cat_id'), is_published=True).values_list("id", flat=True)[:10])
+    
+    cats = Category.objects.prefetch_related(Prefetch('news_set', queryset=News.objects.filter(id__in=subquery)))
 
     paginator = Paginator(cats, 2)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    news_list = []
-
-    for cat in page_obj.object_list:
-        news_list.append(cat.news_set.
-                         filter(is_published=True).select_related('cat')[:10])
-
     context = {
         'title': title,
         'form': form,
-        'news_list': news_list,
         'page_obj': page_obj,
         'currency': currs,
         'cats': cats,
@@ -174,7 +169,7 @@ def test(request):
     # cats = Category.objects.prefetch_related(Prefetch('news_set', queryset=News.objects.filter(is_published=True)))
     
     subquery = Subquery(News.objects.filter(cat_id=OuterRef('cat_id'), is_published=True).values_list("id", flat=True)[:10])
-    print(subquery.all())
+    
     cats = Category.objects.prefetch_related(Prefetch('news_set', queryset=News.objects.filter(id__in=subquery)))
     context = {
         'title': title,
