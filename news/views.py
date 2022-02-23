@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.db.models import Prefetch, OuterRef, Subquery
 
+
 from news.forms import SearchForm, UserAutorizeForm, UserRegisterForm
 from news.models import News, Category, Currency
 from news.parsers.activate import update_db

@@ -8,7 +8,7 @@ SKIP_IMAGES = (
     'https://upload.wikimedia.org/wikipedia/commons/e/e4/Jupiter_and_moon.png',
     'https://upload.wikimedia.org/wikipedia/commons/6/65/Image-silk.png'
 )
-wikipedia.set_lang('ru')    
+wikipedia.set_lang('ru')
 
 
 def get_image(images: list) -> str:
@@ -22,7 +22,7 @@ def get_image(images: list) -> str:
 
 def get_data(titles: list) -> list[tuple]:
     """Собирает и формирует всю необходимюу информацию о статьях для записи в БД"""
-    ID = 6
+    ID = 1
 
     res = []
     for title in titles:
@@ -33,13 +33,17 @@ def get_data(titles: list) -> list[tuple]:
             print(e)
 
         else:
-            summary = page.summary
-            url = page.url
-            image_link = get_image(page.images)
+            try:
+                summary = page.summary
+                url = page.url
+                image_link = get_image(page.images)
 
-            res.append((title, summary, url, image_link, ID))
+                res.append((title, summary, url, image_link, ID))
 
-            ID += 1
+                ID += 1
+
+            except Exception as e:
+                print(e)
 
     return res
 
@@ -64,9 +68,9 @@ def update_db(data):
     sqlite_connection.close()
 
 
-def main():
+def update_wiki_db():
 
-    titles = wikipedia.random(pages=39)
+    titles = wikipedia.random(pages=45)
     data = get_data(titles)
 
     update_db(data)
@@ -75,4 +79,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    update_wiki_db()
