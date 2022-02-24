@@ -3,7 +3,7 @@
 {% block content %}
 {% if request.user.is_superuser %}
 <div>
-        <form action = "{% url 'home1' %}" method = "POST">
+        <form action = "{% url 'wiki:home' %}" method = "POST">
             {% csrf_token%}
             <input class="io" id="update" type="submit" name="update"  value="Обновить БД"/>
         </form>

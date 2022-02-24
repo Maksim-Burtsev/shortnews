@@ -5,7 +5,6 @@ from django.core.exceptions import ValidationError
 from django.core.cache import cache
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm
 from django.db.models import Prefetch, OuterRef, Subquery
 
 

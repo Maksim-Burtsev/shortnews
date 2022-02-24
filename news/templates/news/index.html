@@ -1,6 +1,7 @@
 {% extends 'news/base.html' %}
 
 {% block content %}
+
     <nav style="margin-bottom:20px;">
         {% for cat in cats %}
             <a href="{{ cat.get_absolute_url }}" style="font-size:17px; margin-right:5px;"> {{ cat }}</a>
@@ -27,14 +28,20 @@
     </form>
 
     {% if request.user.is_superuser %}
-    <div style="float:right;margin-top:50px;margin-right:-100px;">
+    <div style="float:right;margin-top:60px;margin-right:-100px;">
         <form action = "{% url 'home' %}" method = "POST">
             {% csrf_token%}
             <input class="io" id="update" type="submit" name="update"  value="Обновить БД"/>
         </form>
+        
     </div>
     {% endif %}
-    
+    <br>
+    <a href="{% url 'wiki:home' %}" style=
+    "float:right;
+    font-size:17px;
+    margin-bottom:10px;
+    ">wikipedia random articles</a>    
 
 {% for cat in page_obj.object_list %}
     <p style="font-size: 30px;"><a href="{{cat.link}}" target="_blank"><strong>{{cat}}</strong></a></p>

@@ -1,5 +1,3 @@
-from tabnanny import verbose
-from turtle import mode
 from django.db import models
 
 
@@ -22,4 +20,4 @@ class Article(models.Model):
     class Meta:
         verbose_name = 'статья'
         verbose_name_plural = 'Статьи'
-        
+        ordering = ['?']        
