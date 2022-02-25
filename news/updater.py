@@ -1,8 +1,8 @@
 from apscheduler.schedulers.background import BackgroundScheduler
-from .smthng_upd import foo
+from .parser import make_update
 
 
 def start():
     scheduler = BackgroundScheduler()
-    scheduler.add_job(foo, 'interval', seconds=600)
+    scheduler.add_job(make_update, 'interval', seconds=600)
     scheduler.start()

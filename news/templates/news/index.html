@@ -44,7 +44,6 @@
     ">wikipedia random articles</a>    
 
 {% for cat in page_obj.object_list %}
-    {{forloop.counter}}
     <p style="font-size: 30px;"><a href="{{cat.link}}" target="_blank"><strong>{{cat}}</strong></a></p>
     <ul>
         {% for post in cat.news_set.all %}
