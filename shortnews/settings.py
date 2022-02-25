@@ -33,9 +33,11 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'wiki',
+    'news',
+    
     'captcha',
     'debug_toolbar',
-    'news',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
