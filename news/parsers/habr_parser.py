@@ -1,8 +1,10 @@
+from cmath import log
 import requests
 from bs4 import BeautifulSoup
 import sqlite3
 import datetime
 import fake_useragent
+import logging
 
 
 URL = 'https://habr.com/ru/all/'
@@ -70,25 +72,28 @@ def update_database(data: list[tuple]):
 def habr_parser_main():
     """Основная функция программы"""
 
-    URL = 'https://habr.com/ru/all/page'
-    all_data = []
-    post_id = 131
+    logger = logging.getLogger('news')
+    try:
+        URL = 'https://habr.com/ru/all/page'
+        all_data = []
+        post_id = 131
 
-    for i in range(1, 6):
-        url = URL + str(i) + '/'
-        articles = get_articles_from_page(url)
-        for j in range(len(articles)):
-            data = get_post_data(articles[j], post_id)
-            if data:
-                all_data.append(data)
-                post_id += 1
-            else:
-                pass
-            print(f'article{j+1}/{len(articles)}')
-        print(f'page {i}/5')
+        for i in range(1, 6):
+            url = URL + str(i) + '/'
+            articles = get_articles_from_page(url)
+            for j in range(len(articles)):
+                data = get_post_data(articles[j], post_id)
+                if data:
+                    all_data.append(data)
+                    post_id += 1
+                else:
+                    pass
 
-        update_database(all_data)
-
+            update_database(all_data)
+    except Exception as e:
+        logger.exception(f'{e} при обновлении Habr')
+    else:
+        logger.info('Habr успешно обновлён')
 
 if __name__ == '__main__':
     habr_parser_main()

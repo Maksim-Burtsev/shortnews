@@ -1,7 +1,9 @@
+from tkinter import E
 import requests
 from bs4 import BeautifulSoup
 import datetime
 import sqlite3
+import logging
 
 URL = 'https://habr.com/ru/search/page{}/?q=Python&target_type=posts&order=date'
 
@@ -69,15 +71,24 @@ def update_db(clean_data):
 
 def update_habr_python():
 
-    res = []
 
-    for i in range(1, 6):
-        res.extend(parser(URL.format(i)))
+    logger = logging.getLogger('news')
 
-    data = pack_data(res)
+    try:
+        res = []
 
-    update_db(data)
+        for i in range(1, 6):
+            res.extend(parser(URL.format(i)))
 
+        data = pack_data(res)
+
+        update_db(data)
+
+    except Exception as e:
+        logger.exception(f'{e} при обновлении Habr Python')
+
+    else:
+        logger.info('Habr Python успешно обновлён')
 
 if __name__ == '__main__':
     update_habr_python()

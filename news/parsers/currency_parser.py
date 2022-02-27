@@ -1,8 +1,10 @@
+from asyncio.log import logger
 import requests
 from bs4 import BeautifulSoup
 import fake_useragent
 import sqlite3
 import datetime
+import logging
 
 user = fake_useragent.UserAgent().random
 HEADER = {'user-agent': user}
@@ -56,14 +58,23 @@ def update_database(data):
 
 
 def currency_main():
-    data = []
-    # data.append(get_bitcoin_price())
-    data.append(get_euro__dollar_price(DOLLAR_URL, 1, '$'))
-    data.append(get_euro__dollar_price(EURO_URL, 2, '€'))
 
-    update_database(data)
-    print('БД успешно обновлена!')
+    logger = logging.getLogger('news')
 
+    try:
+
+        data = []
+        # data.append(get_bitcoin_price())
+        data.append(get_euro__dollar_price(DOLLAR_URL, 1, '$'))
+        data.append(get_euro__dollar_price(EURO_URL, 2, '€'))
+
+        update_database(data)
+
+    except Exception as e:
+        logger.warning(f'{e} при обновлении курса валют')
+    
+    else:
+        logger.info('Курсы валют успешно обновлены')
 
 if __name__ == "__main__":
     currency_main()

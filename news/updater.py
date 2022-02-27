@@ -1,5 +1,5 @@
 from apscheduler.schedulers.background import BackgroundScheduler
-from .parser import make_update
+from news.parser import make_update
 
 
 def start():

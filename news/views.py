@@ -1,3 +1,5 @@
+from cmath import log
+from re import L
 from django.shortcuts import redirect, render
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.core.paginator import Paginator

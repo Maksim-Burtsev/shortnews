@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import datetime
 import sqlite3
+import logging
 
 URL = 'https://tproger.ru/'
 
@@ -60,18 +61,27 @@ def parse(page_num: int):
     return title, link
 
 
-def tproger_main():
-    titles, links = [], []
+def tproger_main(): 
 
-    for i in range(1, 2):
-        title, link = parse(i)
+    logger = logging.getLogger('news')
+    
+    try:
+        titles, links = [], []
 
-        titles.extend(title)
-        links.extend(link)
+        for i in range(1, 2):
+            title, link = parse(i)
 
-    data = clean_data(titles, links, 111)
-    update_database(data)
+            titles.extend(title)
+            links.extend(link)
 
+        data = clean_data(titles, links, 111)
+        update_database(data)
+
+    except Exception as e:
+        logger.exception(f'{e} при обновлении tproger')
+    
+    else:
+        logger.info('Tproger успешно обновлён')
 
 if __name__ == '__main__':
     tproger_main()

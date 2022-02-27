@@ -1,7 +1,9 @@
+from cmath import log
 import requests
 from bs4 import BeautifulSoup
 import datetime
 import sqlite3
+import logging
 
 
 def parser() -> list:
@@ -61,11 +63,21 @@ def update_db(data):
 
 
 def nyt_tech_main():
-    data = parser()
-    
-    clean_data = pack_data(data)
 
-    update_db(clean_data)
+    logger = logging.getLogger('news')
+    
+    try:
+        data = parser()
+        
+        clean_data = pack_data(data)
+
+        update_db(clean_data)
+
+    except Exception as e:
+        logger.exception(f'{e} при обновлении NYT-Tech')
+
+    else:
+        logger.info('NYT-Tech успешно обновлён')
 
 if __name__ == '__main__':
     nyt_tech_main()
