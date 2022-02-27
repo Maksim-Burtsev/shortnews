@@ -150,7 +150,8 @@ LOGGING = {
 
     'formatters': {
         'console': {
-            'format': '%(asctime)s %(module)s.py %(levelname)s %(message)s',
+            'format':
+            '%(asctime)s %(module)s.py %(levelname)s %(message)s',
         },
     },
 
@@ -159,11 +160,19 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'console',
         },
+
+        'file': {
+            'class': 'logging.FileHandler',
+            'formatter': 'console',
+            'filename': 'info.log',
+            'encoding': 'utf-8',
+            'mode': 'a',
+        },
     },
 
     'loggers': {
         'news': {
-            'handlers': ['console'],
+            'handlers': ['console', 'file'],
             'level': 'INFO',
             'propagate': True,
         },
