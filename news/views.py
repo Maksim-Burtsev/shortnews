@@ -132,7 +132,7 @@ def register(request):
     return render(request, 'news/register.html', context=context)
 
 
-def autorize(request):
+def authorization(request):
     """Обрабатывает страницу авторизации пользователя"""
 
     if request.method == "POST":
@@ -143,7 +143,7 @@ def autorize(request):
             login(request, user)
             return redirect('home')
         else:
-            return redirect('autorize')
+            return redirect('authorization')
 
     title = 'Авторизация'
     form = UserAutorizeForm()

@@ -547,3 +547,105 @@
 2022-03-02 12:26:03,814 tproger.py INFO Tproger успешно обновлён
 2022-03-02 12:26:04,263 nyt_tech_parse.py INFO NYT-Tech успешно обновлён
 2022-03-02 12:26:04,263 parser.py INFO База данных успешно обновлена
+2022-03-02 12:35:54,415 habr_parser.py INFO Habr успешно обновлён
+2022-03-02 12:35:57,991 habr.py INFO Habr Python успешно обновлён
+2022-03-02 12:35:58,533 habr_parser.py INFO Habr успешно обновлён
+2022-03-02 12:35:59,909 currency_parser.py INFO Курсы валют успешно обновлены
+2022-03-02 12:36:00,566 tproger.py INFO Tproger успешно обновлён
+2022-03-02 12:36:01,340 nyt_tech_parse.py INFO NYT-Tech успешно обновлён
+2022-03-02 12:36:01,340 parser.py INFO База данных успешно обновлена
+2022-03-02 12:36:01,746 habr.py INFO Habr Python успешно обновлён
+2022-03-02 12:36:03,766 currency_parser.py INFO Курсы валют успешно обновлены
+2022-03-02 12:36:04,193 tproger.py INFO Tproger успешно обновлён
+2022-03-02 12:36:04,741 nyt_tech_parse.py INFO NYT-Tech успешно обновлён
+2022-03-02 12:36:04,741 parser.py INFO База данных успешно обновлена
+2022-03-02 12:40:24,264 habr_parser.py INFO Habr успешно обновлён
+2022-03-02 12:40:31,868 habr.py INFO Habr Python успешно обновлён
+2022-03-02 12:40:33,881 currency_parser.py INFO Курсы валют успешно обновлены
+2022-03-02 12:40:34,313 tproger.py INFO Tproger успешно обновлён
+2022-03-02 12:40:35,381 nyt_tech_parse.py INFO NYT-Tech успешно обновлён
+2022-03-02 12:40:35,381 parser.py INFO База данных успешно обновлена
+2022-03-02 12:45:54,484 habr_parser.py INFO Habr успешно обновлён
+2022-03-02 12:45:58,032 habr.py INFO Habr Python успешно обновлён
+2022-03-02 12:45:58,421 habr_parser.py INFO Habr успешно обновлён
+2022-03-02 12:46:00,296 currency_parser.py INFO Курсы валют успешно обновлены
+2022-03-02 12:46:00,827 tproger.py INFO Tproger успешно обновлён
+2022-03-02 12:46:00,850 habr.py INFO Habr Python успешно обновлён
+2022-03-02 12:46:01,560 nyt_tech_parse.py INFO NYT-Tech успешно обновлён
+2022-03-02 12:46:01,560 parser.py INFO База данных успешно обновлена
+2022-03-02 12:46:02,535 currency_parser.py INFO Курсы валют успешно обновлены
+2022-03-02 12:46:02,956 tproger.py INFO Tproger успешно обновлён
+2022-03-02 12:46:03,536 nyt_tech_parse.py INFO NYT-Tech успешно обновлён
+2022-03-02 12:46:03,536 parser.py INFO База данных успешно обновлена
+2022-03-02 12:50:21,525 habr_parser.py INFO Habr успешно обновлён
+2022-03-02 12:50:25,451 habr.py INFO Habr Python успешно обновлён
+2022-03-02 12:50:27,757 currency_parser.py INFO Курсы валют успешно обновлены
+2022-03-02 12:50:28,393 tproger.py INFO Tproger успешно обновлён
+2022-03-02 12:50:29,237 nyt_tech_parse.py INFO NYT-Tech успешно обновлён
+2022-03-02 12:50:29,238 parser.py INFO База данных успешно обновлена
+2022-03-02 12:55:54,443 habr_parser.py INFO Habr успешно обновлён
+2022-03-02 12:56:08,231 habr.py INFO Habr Python успешно обновлён
+2022-03-02 12:56:09,527 habr_parser.py INFO Habr успешно обновлён
+2022-03-02 12:56:09,956 currency_parser.py INFO Курсы валют успешно обновлены
+2022-03-02 12:56:10,932 tproger.py INFO Tproger успешно обновлён
+2022-03-02 12:56:11,860 nyt_tech_parse.py INFO NYT-Tech успешно обновлён
+2022-03-02 12:56:11,861 parser.py INFO База данных успешно обновлена
+2022-03-02 12:56:12,378 habr.py INFO Habr Python успешно обновлён
+2022-03-02 12:56:14,419 currency_parser.py INFO Курсы валют успешно обновлены
+2022-03-02 12:56:14,892 tproger.py INFO Tproger успешно обновлён
+2022-03-02 12:56:15,439 nyt_tech_parse.py INFO NYT-Tech успешно обновлён
+2022-03-02 12:56:15,440 parser.py INFO База данных успешно обновлена
+2022-03-02 13:00:24,420 habr_parser.py INFO Habr успешно обновлён
+2022-03-02 13:00:28,298 habr.py INFO Habr Python успешно обновлён
+2022-03-02 13:00:30,269 currency_parser.py INFO Курсы валют успешно обновлены
+2022-03-02 13:00:30,848 tproger.py INFO Tproger успешно обновлён
+2022-03-02 13:00:31,441 nyt_tech_parse.py INFO NYT-Tech успешно обновлён
+2022-03-02 13:00:31,441 parser.py INFO База данных успешно обновлена
+2022-03-02 13:05:54,118 habr_parser.py INFO Habr успешно обновлён
+2022-03-02 13:05:58,161 habr.py INFO Habr Python успешно обновлён
+2022-03-02 13:05:58,410 habr_parser.py INFO Habr успешно обновлён
+2022-03-02 13:06:00,158 currency_parser.py INFO Курсы валют успешно обновлены
+2022-03-02 13:06:00,799 tproger.py INFO Tproger успешно обновлён
+2022-03-02 13:06:01,519 habr.py INFO Habr Python успешно обновлён
+2022-03-02 13:06:02,047 nyt_tech_parse.py INFO NYT-Tech успешно обновлён
+2022-03-02 13:06:02,047 parser.py INFO База данных успешно обновлена
+2022-03-02 13:06:03,223 currency_parser.py INFO Курсы валют успешно обновлены
+2022-03-02 13:06:03,814 tproger.py INFO Tproger успешно обновлён
+2022-03-02 13:06:04,445 nyt_tech_parse.py INFO NYT-Tech успешно обновлён
+2022-03-02 13:06:04,445 parser.py INFO База данных успешно обновлена
+2022-03-02 13:10:21,213 habr_parser.py INFO Habr успешно обновлён
+2022-03-02 13:10:24,786 habr.py INFO Habr Python успешно обновлён
+2022-03-02 13:10:26,644 currency_parser.py INFO Курсы валют успешно обновлены
+2022-03-02 13:10:27,137 tproger.py INFO Tproger успешно обновлён
+2022-03-02 13:10:27,761 nyt_tech_parse.py INFO NYT-Tech успешно обновлён
+2022-03-02 13:10:27,761 parser.py INFO База данных успешно обновлена
+2022-03-02 13:15:54,670 habr_parser.py INFO Habr успешно обновлён
+2022-03-02 13:15:57,652 habr.py INFO Habr Python успешно обновлён
+2022-03-02 13:15:58,352 habr_parser.py INFO Habr успешно обновлён
+2022-03-02 13:15:59,510 currency_parser.py INFO Курсы валют успешно обновлены
+2022-03-02 13:16:00,047 tproger.py INFO Tproger успешно обновлён
+2022-03-02 13:16:00,679 nyt_tech_parse.py INFO NYT-Tech успешно обновлён
+2022-03-02 13:16:00,680 parser.py INFO База данных успешно обновлена
+2022-03-02 13:16:00,759 habr.py INFO Habr Python успешно обновлён
+2022-03-02 13:16:03,185 currency_parser.py INFO Курсы валют успешно обновлены
+2022-03-02 13:16:03,584 tproger.py INFO Tproger успешно обновлён
+2022-03-02 13:16:04,055 nyt_tech_parse.py INFO NYT-Tech успешно обновлён
+2022-03-02 13:16:04,056 parser.py INFO База данных успешно обновлена
+2022-03-02 13:25:54,356 habr_parser.py INFO Habr успешно обновлён
+2022-03-02 13:25:57,875 habr.py INFO Habr Python успешно обновлён
+2022-03-02 13:25:58,799 habr_parser.py INFO Habr успешно обновлён
+2022-03-02 13:26:00,056 currency_parser.py INFO Курсы валют успешно обновлены
+2022-03-02 13:26:00,819 tproger.py INFO Tproger успешно обновлён
+2022-03-02 13:26:01,319 habr.py INFO Habr Python успешно обновлён
+2022-03-02 13:26:02,947 nyt_tech_parse.py INFO NYT-Tech успешно обновлён
+2022-03-02 13:26:02,948 parser.py INFO База данных успешно обновлена
+2022-03-02 13:26:03,225 currency_parser.py INFO Курсы валют успешно обновлены
+2022-03-02 13:26:03,878 tproger.py INFO Tproger успешно обновлён
+2022-03-02 13:26:04,431 nyt_tech_parse.py INFO NYT-Tech успешно обновлён
+2022-03-02 13:26:04,431 parser.py INFO База данных успешно обновлена
+2022-03-02 13:26:20,162 habr_parser.py INFO Habr успешно обновлён
+2022-03-02 13:26:22,837 habr.py INFO Habr Python успешно обновлён
+2022-03-02 13:26:25,016 currency_parser.py INFO Курсы валют успешно обновлены
+2022-03-02 13:26:25,466 tproger.py INFO Tproger успешно обновлён
+2022-03-02 13:26:26,034 nyt_tech_parse.py INFO NYT-Tech успешно обновлён
+2022-03-02 13:26:26,034 parser.py INFO База данных успешно обновлена

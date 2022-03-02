@@ -85,5 +85,22 @@ class NewsViewsTest(TestCase):
 
         self.assertTemplateUsed(response, 'news/autorize.html')
 
+    def test_autorize_post(self):
 
+        user = User.objects.create_user(
+            'test_user',
+            'wqfjodsjfWFHEOH23'
+        )
+
+        response = self.client.post(reverse('authorization'),
+        {
+            'username': 'test_user',
+            'password': 'wqfjodsjfWFHEOH23',
+        },
+            follow=True
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertTemplateUsed(response, 'news/autorize.html')
 

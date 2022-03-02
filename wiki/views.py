@@ -37,4 +37,4 @@ class WikiFeed(ListView):
         if request.user.is_superuser:
             update_wiki_db()
 
-        return redirect('home1')
+        return redirect('wiki:home')
