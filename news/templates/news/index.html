@@ -19,12 +19,12 @@
         {% for f in form %}
             {{f}}
         {% endfor %}
-        <button type="submit">Search</button>
-        <div style="float:right; margin-right:77px;font-size:17px;">
+        <button type="submit" class="btn btn-secondary">Search</button>
+        <!-- <div style="float:right; margin-right:77px;font-size:17px;">
             {% for curr in currency %}
                 {{curr}}: {{curr.price}} RUB<br>
             {% endfor %}
-        </div>
+        </div> -->
     </form>
 
     {% if request.user.is_superuser %}

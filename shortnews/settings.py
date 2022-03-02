@@ -32,8 +32,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'wiki',
-    'news',
+    'wiki.apps.WikiConfig',
+    'news.apps.NewsConfig',
 
     'captcha',
     'debug_toolbar',

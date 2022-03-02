@@ -1,5 +1,3 @@
-from cmath import log
-from re import L
 from django.shortcuts import redirect, render
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.core.paginator import Paginator
@@ -163,19 +161,3 @@ def logout_user(request):
     logout(request)
 
     return redirect('home')
-
-
-def test(request):
-
-    title = 'Main page'
-    # cats = Category.objects.prefetch_related(Prefetch('news_set', queryset=News.objects.filter(is_published=True)))
-    
-    subquery = Subquery(News.objects.filter(cat_id=OuterRef('cat_id'), is_published=True).values_list("id", flat=True)[:10])
-    
-    cats = Category.objects.prefetch_related(Prefetch('news_set', queryset=News.objects.filter(id__in=subquery)))
-    context = {
-        'title': title,
-        'cats': cats,
-    }
-
-    return render(request, 'news/test.html', context=context)
