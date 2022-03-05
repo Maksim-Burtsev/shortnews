@@ -21,16 +21,17 @@ def index(request):
             update_db()
 
     form = SearchForm()
-    title = 'Главная страница'
 
     currs = cache.get('currs')
     if not currs:
         currs = Currency.objects.all()
         cache.set('currs', currs, 60)
 
-    subquery = Subquery(News.objects.filter(cat_id=OuterRef('cat_id'), is_published=True).values_list("id", flat=True)[:10])
-    
-    cats = Category.objects.prefetch_related(Prefetch('news_set', queryset=News.objects.filter(id__in=subquery)))
+    subquery = Subquery(News.objects.filter(cat_id=OuterRef(
+        'cat_id'), is_published=True).values_list("id", flat=True)[:10])
+
+    cats = Category.objects.prefetch_related(
+        Prefetch('news_set', queryset=News.objects.filter(id__in=subquery)))
 
     paginator = Paginator(cats, 2)
 
@@ -38,7 +39,7 @@ def index(request):
     page_obj = paginator.get_page(page_number)
 
     context = {
-        'title': title,
+        'title': 'Галавная страница',
         'form': form,
         'page_obj': page_obj,
         'currency': currs,
@@ -121,11 +122,10 @@ def register(request):
             login(request, user)
         return redirect('home')
 
-    title = 'Регистрация'
     form = UserRegisterForm()
 
     context = {
-        'title': title,
+        'title': 'Регистрация',
         'form': form,
     }
 
@@ -145,10 +145,9 @@ def authorization(request):
         else:
             return redirect('authorization')
 
-    title = 'Авторизация'
     form = UserAutorizeForm()
     context = {
-        'title': title,
+        'title': 'Авторизация',
         'form': form,
     }
 
@@ -159,5 +158,4 @@ def logout_user(request):
     """Выход из учётной записи"""
 
     logout(request)
-
     return redirect('home')

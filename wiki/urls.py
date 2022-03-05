@@ -1,4 +1,5 @@
 from django.urls import path
+
 from wiki.views import WikiFeed
 
 app_name = 'wiki'

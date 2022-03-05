@@ -1,4 +1,5 @@
 from apscheduler.schedulers.background import BackgroundScheduler
+
 from news.parser import make_update
 
 

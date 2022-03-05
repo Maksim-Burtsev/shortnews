@@ -48,7 +48,7 @@
     <ul>
         {% for post in cat.news_set.all %}
             <p><a href="{{ post.link }}" target="_blank">{{ post }}</a>
-            {% if request.user.is_authenticated %}
+            {% if request.user.is_superuser %}
             <a href="hide/{{ post.pk }}" style="font-size:14px;color: grey;">del</a>
             {% endif %} 
         {% endfor %}
