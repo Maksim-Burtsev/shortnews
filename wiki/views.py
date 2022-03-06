@@ -1,5 +1,4 @@
-from msilib.schema import ListView
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 from django.views.generic import ListView
 from django.core.cache import cache
 from django.shortcuts import get_list_or_404

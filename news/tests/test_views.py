@@ -77,7 +77,7 @@ class NewsViewsTest(TestCase):
 
         self.assertTemplateUsed(response, 'news/register.html')
 
-    def test_autorize_get(self):
+    def test_autorize_GET(self):
 
         response = self.client.get(reverse('authorization'))
 
@@ -85,7 +85,7 @@ class NewsViewsTest(TestCase):
 
         self.assertTemplateUsed(response, 'news/autorize.html')
 
-    def test_autorize_post(self):
+    def test_autorize_POST(self):
 
         user = User.objects.create_user(
             'test_user',
